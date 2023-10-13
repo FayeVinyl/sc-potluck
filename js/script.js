@@ -10,3 +10,40 @@ const guestList = document.querySelector(".guest-list");
 const guestCount = document.querySelector(".attendance");
 // alert when guest list is full (not yet visible)
 const guestFull = document.querySelector(".alert");
+
+// Event listener, add element with guest name
+addGuestButton.addEventListener("click", function() {
+  const guest = guestInput.value;
+  // console.log(guest);
+  if (guest !== "") {
+    addToList(guest);
+    updateGuestCount();
+    clearInput();
+  }
+
+});
+
+// Clear input box
+const clearInput = function () {
+  guestInput.value = "";
+};
+
+// Refactor
+const addToList = function (guest) {
+  const listItem = document.createElement("li");
+  listItem.innerText = guest;
+  guestList.append(listItem);
+}
+
+// Update and limit guest count to 8
+const updateGuestCount = function () {
+  let guests = document.querySelectorAll(".guest-list li"); //selects all list elements
+  guestCount.innerText = guests.length;
+
+if (guests.length === 8) {
+    addGuestButton.classList.add("hide");
+    guestInput.classList.add("hide");
+    guestInputLabel.classList.add("hide");
+    guestFull.classList.remove("hide");
+  }
+};
